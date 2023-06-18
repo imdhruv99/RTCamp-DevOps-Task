@@ -4,6 +4,8 @@ from pyuac import main_requires_admin
 
 from logger import Logger
 
+logger = Logger()
+
 
 class DockerManager:
     """
@@ -40,7 +42,7 @@ class DockerManager:
         :return: None
         """
 
-        Logger.info(f"{dependency} is not installed. Installing...")
+        logger.info(f"{dependency} is not installed. Installing...")
         if platform.system() == 'Linux':
             distro = platform.linux_distribution()
             if distro[0].lower() in ['rhel', 'centos', 'suse']:
@@ -48,13 +50,13 @@ class DockerManager:
             elif distro[0].lower() == 'ubuntu':
                 subprocess.run(['sudo', 'apt', 'install', '-y', dependency], check=True)
             else:
-                Logger.info("Package installation is not supported on this Linux distribution.")
+                logger.info("Package installation is not supported on this Linux distribution.")
         elif platform.system() == 'Darwin':
             subprocess.run(['brew', 'install', dependency], check=True)
         elif platform.system() == 'Windows':
             subprocess.run(['choco', 'install', '-y', dependency], check=True)
         else:
-            Logger.info("Package installation is not supported on this operating system.")
+            logger.info("Package installation is not supported on this operating system.")
 
     @staticmethod
     @main_requires_admin
@@ -76,4 +78,4 @@ class DockerManager:
             command = ['cmd', '/C', 'mklink', '/D', target, source]
             subprocess.run(command, check=True)
         else:
-            Logger.info("Symbolic link creation is not supported on this operating system.")
+            logger.info("Symbolic link creation is not supported on this operating system.")

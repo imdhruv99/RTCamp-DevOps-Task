@@ -6,6 +6,8 @@ from dockerManager import DockerManager
 from logger import Logger
 from wordpressManager import WordPressManager
 
+logger = Logger()
+
 
 class Main:
     """
@@ -59,17 +61,16 @@ class Main:
 
         site_name = args.site_name
 
-        match args.action:
-            case 'enable':
-                WordPressManager.enable_disable_site('enable')
-            case 'disable':
-                WordPressManager.enable_disable_site('disable')
-            case 'delete':
-                WordPressManager.delete_site(site_name)
-            case None:
-                logger.info("Your site is running on localhost.")
-            case _:
-                logger.info("Invalid action.")
+        if args.action == 'enable':
+            WordPressManager.enable_disable_site('enable')
+        elif args.action == 'disable':
+            WordPressManager.enable_disable_site('disable')
+        elif args.action == 'delete':
+            WordPressManager.delete_site(site_name)
+        elif args.action is None:
+            logger.info("Your site is running on localhost.")
+        else:
+            logger.info("Invalid action.")
 
 
 if __name__ == '__main__':
