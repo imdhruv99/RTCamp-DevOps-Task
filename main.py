@@ -3,6 +3,7 @@ import subprocess
 import sys
 import platform
 from pyuac import main_requires_admin
+import argparse
 
 def check_dependency_installed(dependency):
     try:
@@ -152,19 +153,39 @@ def main():
 
     print("WordPress site created successfully.")
 
-    while True:
-        action = input("Enter 'open' to open the site in a browser, 'enable' to enable the site, 'disable' to disable the site, 'delete' to delete the site, or 'exit' to quit: ")
-        
-        if action == 'open':
-            subprocess.run(['xdg-open', f'http://{site_name}'])
-        elif action in ['enable', 'disable']:
-            enable_disable_site(action)
-        elif action == 'delete':
+    # Create an ArgumentParser object
+    parser = argparse.ArgumentParser(description='WordPress site management script')
+
+    # Add a positional argument for the site name
+    parser.add_argument('site_name', help='Name of the WordPress site')
+
+    # Add a subparser for the action selection
+    subparsers = parser.add_subparsers(dest='action', help='Action to perform')
+
+    # Add a subparser for the 'enable' action
+    enable_parser = subparsers.add_parser('enable', help='Enable the site')
+
+    # Add a subparser for the 'disable' action
+    disable_parser = subparsers.add_parser('disable', help='Disable the site')
+
+    # Add a subparser for the 'delete' action
+    delete_parser = subparsers.add_parser('delete', help='Delete the site')
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    site_name = args.site_name
+
+    match args.action:
+        case 'enable':
+            enable_disable_site('enable')
+        case 'disable':
+            enable_disable_site('disable')
+        case 'delete':
             delete_site(site_name)
-            break
-        elif action == 'exit':
-            break
-        else:
+        case None:
+            print("Your site is running on localhost.")
+        case _:
             print("Invalid action.")
 
 if __name__ == '__main__':
