@@ -7,8 +7,23 @@ from dockerManager import DockerManager
 from logger import Logger
 
 class WordPressManager:
+    """
+    Class for managing WordPress sites using Docker and NGINX.
+    """
+
     @staticmethod
     def create_wordpress_site(site_name):
+        """
+        Creates a new WordPress site using Docker and NGINX.
+
+        This method creates a Docker Compose file with the necessary configurations for running a WordPress site
+        and an NGINX configuration file for routing traffic to the WordPress container. It also creates a symbolic
+        link to the NGINX configuration file and starts the containers.
+
+        :param site_name: The name of the WordPress site.
+        :return: None
+        """
+
         os.chdir(site_name)
 
         # Create Docker Compose file
@@ -73,6 +88,16 @@ volumes:
 
     @staticmethod
     def enable_disable_site(action):
+        """
+        Enables or disables a WordPress site.
+
+        This method starts or stops the Docker containers associated with the WordPress site based on the provided
+        action ('enable' or 'disable').
+
+        :param action: The action to perform ('enable' or 'disable').
+        :return: None
+        """
+
         if action == 'enable':
             subprocess.run(['docker-compose', 'start'], check=True)
             Logger.info("Site enabled.")
@@ -82,6 +107,16 @@ volumes:
 
     @staticmethod
     def delete_site(site_name):
+        """
+        Deletes a WordPress site.
+
+        This method stops and removes the Docker containers associated with the WordPress site. It also deletes the
+        site's directory.
+
+        :param site_name: The name of the WordPress site.
+        :return: None
+        """
+
         os.chdir(site_name)
         subprocess.run(['docker-compose', 'down'], check=True)
         os.chdir('..')
@@ -91,6 +126,16 @@ volumes:
     @staticmethod
     @main_requires_admin
     def add_hosts_entry(site_name):
+        """
+        Adds a hosts file entry for the WordPress site.
+
+        This method adds an entry to the hosts file to map the site's domain name to the loopback address (127.0.0.1).
+        The hosts file is located at different paths depending on the operating system.
+
+        :param site_name: The name of the WordPress site.
+        :return: None
+        """
+        
         if platform.system() == 'Windows':
             # Windows hosts file location
             hosts_path = r'C:\Windows\System32\drivers\etc\hosts'
