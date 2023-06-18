@@ -14,12 +14,18 @@ def check_dependency_installed(dependency):
 
 def install_dependency(dependency):
     print(f"{dependency} is not installed. Installing...")
-
     if platform.system() == 'Linux':
-        subprocess.run(['sudo', 'apt', 'install', '-y', dependency], check=True)
+        distro = platform.linux_distribution()
+        if distro[0].lower() in ['rhel', 'centos', 'suse']:
+            subprocess.run(['sudo', 'yum', 'install', '-y', dependency], check=True)
+        elif distro[0].lower() == 'ubuntu':
+            subprocess.run(['sudo', 'apt', 'install', '-y', dependency], check=True)
+        else:
+            print("Package installation is not supported on this Linux distribution.")
+    elif platform.system() == 'Darwin':
+        subprocess.run(['brew', 'install', dependency], check=True)
     elif platform.system() == 'Windows':
-        # Handle Windows package installation, e.g., using Chocolatey or other package managers
-        print("Package installation is not supported on Windows in this script.")
+        subprocess.run(['choco', 'install', '-y', dependency], check=True)
     else:
         print("Package installation is not supported on this operating system.")
 
@@ -158,17 +164,9 @@ def main():
 
     # Add a positional argument for the site name
     parser.add_argument('site_name', help='Name of the WordPress site')
-
-    # Add a subparser for the action selection
     subparsers = parser.add_subparsers(dest='action', help='Action to perform')
-
-    # Add a subparser for the 'enable' action
     enable_parser = subparsers.add_parser('enable', help='Enable the site')
-
-    # Add a subparser for the 'disable' action
     disable_parser = subparsers.add_parser('disable', help='Disable the site')
-
-    # Add a subparser for the 'delete' action
     delete_parser = subparsers.add_parser('delete', help='Delete the site')
 
     # Parse the command-line arguments
