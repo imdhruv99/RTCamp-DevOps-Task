@@ -6,6 +6,9 @@ from pyuac import main_requires_admin
 from dockerManager import DockerManager
 from logger import Logger
 
+logger = Logger()
+
+
 class WordPressManager:
     """
     Class for managing WordPress sites using Docker and NGINX.
@@ -100,10 +103,10 @@ volumes:
 
         if action == 'enable':
             subprocess.run(['docker-compose', 'start'], check=True)
-            Logger.info("Site enabled.")
+            logger.info("Site enabled.")
         elif action == 'disable':
             subprocess.run(['docker-compose', 'stop'], check=True)
-            Logger.info("Site disabled.")
+            logger.info("Site disabled.")
 
     @staticmethod
     def delete_site(site_name):
@@ -121,7 +124,7 @@ volumes:
         subprocess.run(['docker-compose', 'down'], check=True)
         os.chdir('..')
         subprocess.run(['sudo', 'rm', '-rf', site_name])
-        Logger.info("Site deleted.")
+        logger.info("Site deleted.")
 
     @staticmethod
     @main_requires_admin
@@ -143,12 +146,12 @@ volumes:
             # Linux hosts file location
             hosts_path = '/etc/hosts'
         else:
-            Logger.info("Hosts file modification is not supported on this operating system.")
+            logger.info("Hosts file modification is not supported on this operating system.")
             return
 
         try:
             with open(hosts_path, 'a') as hosts_file:
                 hosts_file.write(f'127.0.0.1 {site_name}\n')
-            Logger.info("Hosts entry added successfully.")
+            logger.info("Hosts entry added successfully.")
         except Exception as e:
-            Logger.error(f"Failed to add hosts entry: {str(e)}")
+            logger.error(f"Failed to add hosts entry: {str(e)}")
