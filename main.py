@@ -6,8 +6,22 @@ from dockerManager import DockerManager
 from logger import Logger
 from wordpressManager import WordPressManager
 
+
 class Main:
+    """
+    Class representing the main entry point for the WordPress site management script.
+    """
+
     def main():
+        """
+        Main method to execute the WordPress site management script.
+
+        It checks the dependencies, creates a WordPress site, adds a hosts entry, and performs actions based on
+        command-line arguments.
+
+        :return: None
+        """
+        
         if not DockerManager.check_dependency_installed('docker'):
             DockerManager.install_dependency('docker')
 
@@ -60,4 +74,4 @@ class Main:
 
 if __name__ == '__main__':
     logger = Logger()
-    mainObj = Main.main()
+    main = Main.main()
