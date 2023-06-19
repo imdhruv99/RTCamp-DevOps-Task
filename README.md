@@ -72,4 +72,3 @@
 - Delete Site.
 
     <img src="https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/delete.png" title="Delete Site">
-    ![Delete Site](https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/delete.png)
