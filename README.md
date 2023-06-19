@@ -56,7 +56,7 @@
 
 - Create wordpress site.
 
-    ![python create command](./imageshttps://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/create_wordpress_site.png)
+    ![python create command](https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/create_wordpress_site.png)
 
 - After creating the site, If you go to localhost, you will get below page. It may take 3 to 4 seconds after creation of container, or may me more depending on your hardware.
 
@@ -64,12 +64,12 @@
 
 - If you see in folder structure, you can find nginx.conf and docker compose file along with wordpress site content.
 
-    ![wordpress site folder structure](./images/https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/wordpress_site_folder.png)
+    ![wordpress site folder structure](https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/wordpress_site_folder.png)
 
 - Enable or Disable wordpress site.
 
-    ![Enable Disable Action](./images/https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/enable_disable.png)
+    ![Enable Disable Action](https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/enable_disable.png)
 
 - Delete Site.
 
-    ![Delete Site](./images/https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/delete.png)
+    ![Delete Site](https://github.com/imdhruv99/RTCamp-DevOps-Task/blob/main/images/delete.png)
