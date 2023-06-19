@@ -170,7 +170,7 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     ports:
-      - "80:80"
+      - "80:8001"
     volumes:
       - ./wp-content:/var/www/html/wp-content
 volumes:
